@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Dsmigrator by mbbx6spp</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Dsmigrator</h1>
+        <p>Migration tool to define, manage, and run migrations against non-RDBMS datastores or search engines.</p>
+
+        <p class="view"><a href="https://github.com/mbbx6spp/dsmigrator">View the Project on GitHub <small>mbbx6spp/dsmigrator</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/mbbx6spp/dsmigrator/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/mbbx6spp/dsmigrator/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/mbbx6spp/dsmigrator">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="datastore-migrator" class="anchor" href="#datastore-migrator"><span class="octicon octicon-link"></span></a>Datastore Migrator</h1>
+
+<p>Migration tool for non-RDBMS datastores. Support for different datastores
+will be offered via plugin capability.</p>
+
+<h2>
+<a name="status" class="anchor" href="#status"><span class="octicon octicon-link"></span></a>Status</h2>
+
+<p>WORK IN PROGRESS</p>
+
+<h2>
+<a name="goals" class="anchor" href="#goals"><span class="octicon octicon-link"></span></a>Goals</h2>
+
+<p>To provide a way to:</p>
+
+<ul>
+<li>declaratively define schema <em>migrations</em>
+</li>
+<li>define <em>plan</em> which can be per environment</li>
+<li>detect <em>status</em> of <em>plan</em> for a <em>target</em>
+</li>
+<li>run <em>plan</em> of <em>migrations</em> against a <em>target</em>
+</li>
+</ul><h2>
+<a name="terminology" class="anchor" href="#terminology"><span class="octicon octicon-link"></span></a>Terminology</h2>
+
+<ul>
+<li>
+<em>Schema:</em> construct in a datastore providing structure for data, e.g. index
+with mappings in a search engine like ElasticSearch, table with columns and/or
+column families in HBase, etc.</li>
+<li>
+<em>Migration:</em> atomic unit of change</li>
+<li>
+<em>Plan:</em> sequence of migrations</li>
+<li>
+<em>Status:</em> report identifying what migrations have been applied and what are pending</li>
+<li>
+<em>Target:</em> specific datastore typically represented by a URL</li>
+</ul><h2>
+<a name="todo" class="anchor" href="#todo"><span class="octicon octicon-link"></span></a>TODO</h2>
+
+<p>This is a project basically at it's inception so there is a lot to do before
+we get the first working version shipped. Namely:</p>
+
+<p>Version 0.1 should have the ability to do the following:</p>
+
+<ul>
+<li>Provide Scala API to declaratively define migrations</li>
+<li>Provide Scala API to declaratively define plans</li>
+<li>Report status of a plan for the given target</li>
+<li>Run plan of migrations against a target</li>
+<li>Implement migration runner for HBase</li>
+</ul><p>Version 0.2 should have the following capabilities in addition to 0.1:</p>
+
+<ul>
+<li>Implement migration runner for ElasticSearch 0.9.x/1.x</li>
+<li>Provide Java-compatible API to define migrations</li>
+<li>Provide Java-compatible API to defined plans</li>
+</ul><p>TODO define next version milestones.</p>
+
+<h2>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>This software is licensed under the BSD 3-clause license. See LICENSE file
+for more information.</p>
+
+<h2>
+<a name="authors--maintainers" class="anchor" href="#authors--maintainers"><span class="octicon octicon-link"></span></a>Author(s) / Maintainer(s)</h2>
+
+<p>So far just me, <a href="https://github.com/mbbx6spp">Susan Potter</a>.</p>
+
+<h2>
+<a name="contributors" class="anchor" href="#contributors"><span class="octicon octicon-link"></span></a>Contributor(s)</h2>
+
+<p>Coming soon. Submit a single patch and see your name in flashing lights here.
+Or something.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/mbbx6spp">mbbx6spp</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
