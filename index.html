@@ -1,44 +1,37 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Dsmigrator by mbbx6spp</title>
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="javascripts/respond.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
     <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <!--[if lt IE 8]>
-    <link rel="stylesheet" href="stylesheets/ie.css">
-    <![endif]-->
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-
+    <title>Dsmigrator by mbbx6spp</title>
   </head>
+
   <body>
-      <div id="header">
-        <nav>
-          <li class="fork"><a href="https://github.com/mbbx6spp/dsmigrator">View On GitHub</a></li>
-          <li class="downloads"><a href="https://github.com/mbbx6spp/dsmigrator/zipball/master">ZIP</a></li>
-          <li class="downloads"><a href="https://github.com/mbbx6spp/dsmigrator/tarball/master">TAR</a></li>
-          <li class="title">DOWNLOADS</li>
-        </nav>
-      </div><!-- end header -->
+    <div id="container">
+      <div class="inner">
 
-    <div class="wrapper">
-
-      <section>
-        <div id="title">
+        <header>
           <h1>Dsmigrator</h1>
-          <p>Migration tool to define, manage, and run migrations against non-RDBMS datastores or search engines.</p>
-          <hr>
-          <span class="credits left">Project maintained by <a href="https://github.com/mbbx6spp">mbbx6spp</a></span>
-          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
-        </div>
+          <h2>Migration tool to define, manage, and run migrations against non-RDBMS datastores or search engines.</h2>
+        </header>
 
-        <h1>
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/mbbx6spp/dsmigrator/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/mbbx6spp/dsmigrator/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/mbbx6spp/dsmigrator" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h1>
 <a name="datastore-migrator" class="anchor" href="#datastore-migrator"><span class="octicon octicon-link"></span></a>Datastore Migrator</h1>
 
 <p>Migration tool for non-RDBMS datastores. Support for different datastores
@@ -79,6 +72,31 @@ column families in HBase, etc.</li>
 <li>
 <em>Target:</em> specific datastore typically represented by a URL</li>
 </ul><h2>
+<a name="motivations" class="anchor" href="#motivations"><span class="octicon octicon-link"></span></a>Motivations</h2>
+
+<p>Here are some of the reasons not to build the same kind of thing over and
+over again for the main different datastores, search engines, message
+brokers, etc that require some kind of "schema" (used loosely here).</p>
+
+<p>First of all I think the activities for each of these different types of
+stores is overwhelmingly similar from an infrastructure management
+perspective.</p>
+
+<p>Secondly separating out the plan from the migrations themselves provides
+a way to solve the issue of having different needs in different environments.
+Where <em>environment</em> might be customer installs for single tenant applications
+or different sets of nodes for staging, profiling, preproduction, and
+production in multi-tenant configurations.</p>
+
+<p>At the time I started this project I wasn't aware of a tool that provided
+such a model to help solve the problems I was seeing at work where we had
+HBase, ElasticSearch, Redis, Kafka, etc. which all needed to have their
+"schemas" managed upon deployment of new application code (sometimes). This
+leaves the application not needing to handle the setup of, say, topics on
+message brokers (e.g. Kafka, RabbitMQ, etc.) and keep their focus on the
+application logic.</p>
+
+<h2>
 <a name="roadmap" class="anchor" href="#roadmap"><span class="octicon octicon-link"></span></a>Roadmap</h2>
 
 <p>This is a project basically at it's inception so there is a lot to do before
@@ -176,10 +194,15 @@ for more information.</p>
 
 <p>Coming soon. Submit a single patch and see your name in flashing lights here.
 Or something.</p>
-      </section>
+        </section>
 
+        <footer>
+          Dsmigrator is maintained by <a href="https://github.com/mbbx6spp">mbbx6spp</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
     </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-    
   </body>
 </html>
