@@ -4,30 +4,40 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>Dsmigrator by mbbx6spp</title>
-
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
     <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
   </head>
   <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/mbbx6spp/dsmigrator">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/mbbx6spp/dsmigrator/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/mbbx6spp/dsmigrator/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
     <div class="wrapper">
-      <header>
-        <h1>Dsmigrator</h1>
-        <p>Migration tool to define, manage, and run migrations against non-RDBMS datastores or search engines.</p>
 
-        <p class="view"><a href="https://github.com/mbbx6spp/dsmigrator">View the Project on GitHub <small>mbbx6spp/dsmigrator</small></a></p>
-
-
-        <ul>
-          <li><a href="https://github.com/mbbx6spp/dsmigrator/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/mbbx6spp/dsmigrator/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/mbbx6spp/dsmigrator">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
       <section>
+        <div id="title">
+          <h1>Dsmigrator</h1>
+          <p>Migration tool to define, manage, and run migrations against non-RDBMS datastores or search engines.</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/mbbx6spp">mbbx6spp</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+        </div>
+
         <h1>
 <a name="datastore-migrator" class="anchor" href="#datastore-migrator"><span class="octicon octicon-link"></span></a>Datastore Migrator</h1>
 
@@ -69,7 +79,7 @@ column families in HBase, etc.</li>
 <li>
 <em>Target:</em> specific datastore typically represented by a URL</li>
 </ul><h2>
-<a name="todo" class="anchor" href="#todo"><span class="octicon octicon-link"></span></a>TODO</h2>
+<a name="roadmap" class="anchor" href="#roadmap"><span class="octicon octicon-link"></span></a>Roadmap</h2>
 
 <p>This is a project basically at it's inception so there is a lot to do before
 we get the first working version shipped. Namely:</p>
@@ -91,6 +101,66 @@ we get the first working version shipped. Namely:</p>
 </ul><p>TODO define next version milestones.</p>
 
 <h2>
+<a name="code-structure" class="anchor" href="#code-structure"><span class="octicon octicon-link"></span></a>Code Structure</h2>
+
+<p>I use a less common structure to my code than many Scala projects so here is
+the code structure outline and explanation:</p>
+
+<ul>
+<li>
+<strong>Types:</strong> I use a <em>more</em> functional style of coding in Scala and as a
+result start coding from <em><em>closed</em></em> algebraic data types (usually sum,
+product, and recursive types), which define the basic elements of the
+domain. These traits (types) and corresponding case classes/objects (value
+constructors) can be found in the <code>Types</code> trait for namespacing. See below
+for description of namespace organization.</li>
+<li>
+<strong>"Classes":</strong>  this does not refer to OO classes but rather typeclass
+definitions. I have a trait named <code>Classes</code> which contains typeclass
+definitions used to extend our basic sum, product, and recursive data
+types. One such type I am using to extend my core <code>Action[A]</code> type is
+<a href="https://github.com/mbbx6spp/dsmigrator/blob/master/src/main/scala/dsmigrator/classes.scala#L21-L36"><code>Group[A]</code></a>
+</li>
+<li>
+<strong>"Instances":</strong> again this does not refer to "instances" of OO classes,
+rather this refers to implementations of typeclasses for specific types.
+In the trait named <code>Instances</code> you will find a number of implicits that
+can be mixed in to different contexts later the allows Scala to find
+the correct instance definition for a specific type of a typeclass based
+on the scope it is introduced. More specific scopes have higher precedence
+which means the default <code>dsmigrator</code> package instance definitions can be
+overridden in applicaation/client code at a higher level if necessary.</li>
+<li>
+<strong>Functions:</strong> I have a trait named <code>Functions</code>, which along side the
+interface to our core types and typeclasses provides the public API for
+the <code>dsmigrator</code> library/toolkit.</li>
+<li>
+<strong>Namespacing:</strong> You will note I am using traits for namespacing primitives
+that I then use to mixin to objects used for external package namespacing.
+View the code in <a href="https://github.com/mbbx6spp/dsmigrator/blob/master/src/main/scala/dsmigrator/package.scala">src/main/scala/dsmigrator/package.scala</a>
+to see how the <code>dsmigrator.core</code> package is constructed from traits. You
+might also notice the following inline comments in the <code>Types</code> trait
+that hints at a minor issue with scalac supported my preferred <code>final case</code>
+style in <a href="https://github.com/mbbx6spp/dsmigrator/blob/master/src/main/scala/dsmigrator/types.scala#L5">src/main/scala/dsmigrator/types.scala</a>
+</li>
+</ul><h2>
+<a name="faq" class="anchor" href="#faq"><span class="octicon octicon-link"></span></a>FAQ</h2>
+
+<ul>
+<li>
+<strong>So the building blocks of my code are <em>closed</em>, how can we extend them?</strong>
+Great question. Essentially the are only closed on construction, however,
+using ad-hoc polymorphism via Scala's powerful implicits feature we can
+extend these types <em>interfaces</em>. The benefit here is twofold. Firstly we
+have the ability to control how values of our basic types are constructed,
+which allows us to ensure they are constructed in valid forms only.
+Secondly we can still extend the effective interface of the types so
+we can use them in well-defined ways later without coupling the definition
+of the type with all the possible ways it can be used. This is contrary
+to mainstream OO techniques using interfaces that need to be "implemented"
+at time of type definition as opposed to later. Note: not all OO languages
+are this limited just the most used ones :(</li>
+</ul><h2>
 <a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
 
 <p>This software is licensed under the BSD 3-clause license. See LICENSE file
@@ -107,12 +177,9 @@ for more information.</p>
 <p>Coming soon. Submit a single patch and see your name in flashing lights here.
 Or something.</p>
       </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/mbbx6spp">mbbx6spp</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
+
     </div>
-    <script src="javascripts/scale.fix.js"></script>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
     
   </body>
 </html>
