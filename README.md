@@ -22,7 +22,7 @@ To provide a way to:
 * *Status:* report identifying what migrations have been applied and what are pending
 * *Target:* specific datastore typically represented by a URL
 
-## TODO
+## Roadmap
 
 This is a project basically at it's inception so there is a lot to do before
 we get the first working version shipped. Namely:
@@ -42,6 +42,45 @@ Version 0.2 should have the following capabilities in addition to 0.1:
 * Provide Java-compatible API to defined plans
 
 TODO define next version milestones.
+
+## Code Structure
+
+I use a less common structure to my code than many Scala projects so here is
+the code structure outline and explanation:
+
+* I use a _more_ functional style of coding in Scala and as a result start
+  coding from _*closed*_ algebraic data types (usually sum, product, and
+  recursive types), which define the basic elements of the domain. These
+  traits (types) and corresponding case classes/objects (value constructors)
+  can be found in the Types trait for namespacing. See below for description
+  of namespace organization.
+* So the building blocks of my code are _*closed*_, how can we extend them?
+  Great question. Essentially the are only closed on construction, however,
+  using ad-hoc polymorphism via Scala's powerful implicits feature we can
+  extend these types _interfaces_. The benefit here is twofold. Firstly we
+  have the ability to control how values of our basic types are constructed,
+  which allows us to ensure they are constructed in valid forms only.
+  Secondly we can still extend the effective interface of the types so
+  we can use them in well-defined ways later without coupling the definition
+  of the type with all the possible ways it can be used. This is contrary
+  to mainstream OO techniques using interfaces that need to be "implemented"
+  at time of type definition as opposed to later. Note: not all OO languages
+  are this limited just the most used ones :(
+* *"Classes":*  this does not refer to OO classes but rather typeclass
+  definitions. I have a trait named `Classes` which contains typeclass
+  definitions used to extend our basic sum, product, and recursive data
+  types.
+* *"Instances":* again this does not refer to "instances" of OO classes,
+  rather this refers to implementations of typeclasses for specific types.
+  In the trait named `Instances` you will find a number of implicits that
+  can be mixed in to different contexts later the allows Scala to find
+  the correct instance definition for a specific type of a typeclass based
+  on the scope it is introduced. More specific scopes have higher precedence
+  which means the default `dsmigrator` package instance definitions can be
+  overridden in applicaation/client code at a higher level if necessary.
+* *Functions:* I have a trait named `Functions`, which along side the
+  interface to our core types and typeclasses provides the public API for
+  the `dsmigrator` library/toolkit.
 
 ## License
 
