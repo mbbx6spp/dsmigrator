@@ -22,6 +22,30 @@ To provide a way to:
 * *Status:* report identifying what migrations have been applied and what are pending
 * *Target:* specific datastore typically represented by a URL
 
+## Motivations
+
+Here are some of the reasons not to build the same kind of thing over and
+over again for the main different datastores, search engines, message
+brokers, etc that require some kind of "schema" (used loosely here).
+
+First of all I think the activities for each of these different types of
+stores is overwhelmingly similar from an infrastructure management
+perspective.
+
+Secondly separating out the plan from the migrations themselves provides
+a way to solve the issue of having different needs in different environments.
+Where *environment* might be customer installs for single tenant applications
+or different sets of nodes for staging, profiling, preproduction, and
+production in multi-tenant configurations.
+
+At the time I started this project I wasn't aware of a tool that provided
+such a model to help solve the problems I was seeing at work where we had
+HBase, ElasticSearch, Redis, Kafka, etc. which all needed to have their
+"schemas" managed upon deployment of new application code (sometimes). This
+leaves the application not needing to handle the setup of, say, topics on
+message brokers (e.g. Kafka, RabbitMQ, etc.) and keep their focus on the
+application logic.
+
 ## Roadmap
 
 This is a project basically at it's inception so there is a lot to do before
