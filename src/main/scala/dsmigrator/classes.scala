@@ -4,7 +4,7 @@ package dsmigrator
 /**
   * CoreClasses trait contains "typeclasses" and related type aliases for the
   * purposes of the dsmigrator package and related code.
-  */
+  **/
 trait Classes {
   import scalaz._, Scalaz._
 
@@ -21,6 +21,7 @@ trait Classes {
   trait Group[A] extends Monoid[A] {
     def inverse(a: A): A
   }
+  /* Companion object for Group */
   object Group {
     @inline def apply[A](implicit A: Group[A]): Group[A] = A
 
@@ -35,4 +36,3 @@ trait Classes {
       }
   }
 }
-
