@@ -1,5 +1,7 @@
 # Datastore Migrator
 
+[![Build Status](https://travis-ci.org/mbbx6spp/dsmigrator.svg?branch=master)](https://travis-ci.org/mbbx6spp/dsmigrator)
+
 Migration tool for non-RDBMS datastores. Support for different datastores
 will be offered via plugin capability.
 
