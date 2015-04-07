@@ -37,7 +37,7 @@ object TestInstances {
   , Action.DisableAction[A](_)
   , Action.RenameAction[A]("source", "target", _)
   , a => Action.identity[A]
-  //, a => Action.ActionSeries(Action.CreateAction[A](a) :: Action.EnableAction[A](a) :: Nil)
-  //, a => Action.ActionSeries(Action.DeleteAction[A](a) :: Action.NoopAction :: Nil)
+  , a => Action.ActionSeries(Action.CreateAction[A](a) :: Action.EnableAction[A](a) :: Nil)
+  , a => Action.ActionSeries(Action.DeleteAction[A](a) :: Action.NoopAction :: Nil)
   )
 }
